@@ -1,0 +1,29 @@
+.content-wrapper {
+    min-height: 570.132px;
+}
+
+.headun {
+    display: block;
+    overflow: hidden;
+}
+
+.headun a {
+    float: right;
+    margin-top: -25px;
+}
+
+/*.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 1px solid #ddd;
+}*/
+
+
+.table.tbl-detail tr th td {
+}
+
+.table.tbl-detail td {
+    border: none;
+}
+
+.table.tbl-detail th {
+    border: none;
+}
