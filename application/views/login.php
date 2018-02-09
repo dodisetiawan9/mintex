@@ -58,10 +58,9 @@
 			<span class="header"><i class="fa fa-cube"></i> Cv Mintex </span>
 		</center>
 
-		<div class="col-md-4 col-sm-12 col-md-offset-4">
-
-			<form action="" class="well" method="post">
-                <?php  
+        <br>
+		<div class="col-md-4 col-sm-6 col-xs-12 col-md-offset-4">
+            <?php  
                     if($this->session->flashdata('alert'))
                     {
                         echo '<div class="alert alert-danger alert-message">';
@@ -76,7 +75,10 @@
                         echo '</div>';
                     }
 
-                ?>
+            ?>
+
+			<form action="" class="well" method="post">
+                
 				<h3><i class="fa fa-user"></i> Please Sign In</h3>
 				<hr />
 				<br />

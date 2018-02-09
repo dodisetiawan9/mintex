@@ -33,7 +33,7 @@
     <li class="treeview"></li>
     <li></li>
     <li>
-      <a href="<?= base_url(); ?>admin/distributor">
+      <a href="<?= base_url(); ?>distributor">
         <i class="fa fa-handshake-o"></i>
         <span>Data Distributor</span>
         <!-- <span class="pull-right-container">
@@ -66,7 +66,7 @@
         <li class="<?php if($this->uri->segment(1) == "kain_out"){echo "active";}else{echo "";} ?>"><a href="<?= base_url(); ?>kain_out"><i class="<?php if($this->uri->segment(1) == "kain_out"){echo "fa fa-circle-o text-yellow";}else{echo "fa fa-circle-o";} ?>"></i> Data Kain Keluar</a></li>
       </ul>
     </li>
-    <li class="treeview">
+    <li class="<?php if($this->uri->segment(1) == "benang" || $this->uri->segment(1) == "benang_out"){echo "active";}else{echo "";} ?> treeview">
       <a href="#">
         <i class="fa fa-cubes"></i> <span>Master Benang</span>
         <span class="pull-right-container">
@@ -74,9 +74,11 @@
         </span>
       </a>
       <ul class="treeview-menu">
-        <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o text-red"></i> Jenis Benang</a></li>
-        <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data Benang Masuk</a></li>
-        <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data Benang Keluar</a></li>
+        <li><a href="pages/tables/simple.html">
+          <i class="<?php if($this->uri->segment(2) == "jenis"){echo "fa fa-circle-o text-yellow";}else{echo "fa fa-circle-o";} ?>"></i> Jenis Benang</a></li>
+        <li><a href="<?= base_url(); ?>benang">
+          <i class="<?php if($this->uri->segment(1) == "benang"){echo "fa fa-circle-o text-yellow";}else{echo "fa fa-circle-o";} ?>"></i> Data Benang Masuk</a></li>
+        <li><a href="<?= base_url(); ?>benang_out"><i class="<?php if($this->uri->segment(1) == "benang_out"){echo "fa fa-circle-o text-yellow";}else{echo "fa fa-circle-o";} ?>"></i> Data Benang Keluar</a></li>
       </ul>
     </li>
     <li></li>

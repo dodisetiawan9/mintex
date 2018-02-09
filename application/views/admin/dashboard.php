@@ -7,6 +7,9 @@
   <title>Mintex | Inventory System</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- jquery ui -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/css/jquery-ui.min.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/css/jquery-ui.theme.css">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -184,9 +187,15 @@
   $(document).ready(function(){
     $('#datatable').DataTable();
   });
+
+  $('.alert-message').alert().delay(3000).slideUp('slow');
+
+  $(document).ready(function(){
+    $("#tanggal").datepicker();
+  });
 </script>
-<script type="text/javascript">
-      $('.alert-message').alert().delay(3000).slideUp('slow');
-</script>
+
+      
+
 </body>
 </html>

@@ -27,3 +27,7 @@
 .table.tbl-detail th {
     border: none;
 }
+
+h4.tit {
+    display: inline-block;
+}
