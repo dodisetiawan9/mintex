@@ -16,10 +16,10 @@
 
 					<form class="form-horizontal form-label-left" method="Post" action="">
 		          <div class="item form-group">
-		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Distributor 
+		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Destination 
 		            </label>
 		            <div class="col-md-6 col-sm-6 col-xs-12">
-		              <input type="text" name="dist" required="required" class="form-control col-md-7 col-xs-12" value="<?= $nama_dist; ?>">
+		              <input type="text" name="dest" required="required" class="form-control col-md-7 col-xs-12" value="<?= $dist; ?>">
 		            </div>
 		          </div>
 		          <div class="item form-group">
@@ -33,7 +33,7 @@
 		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Telepon 
 		            </label>
 		            <div class="col-md-6 col-sm-6 col-xs-12">
-		              <input type="number" name="phone" required="required" class="form-control col-md-7 col-xs-12" value="<?= $telepon; ?>">
+		              <input type="number" name="telepon" required="required" class="form-control col-md-7 col-xs-12" value="<?= $telepon; ?>">
 		            </div>
 		          </div>
 		         

@@ -30,21 +30,25 @@
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
       </a>
     </li>
-    <li class="treeview"></li>
-    <li></li>
-    <li>
+    <li class="<?php if($this->uri->segment(1) == 'distributor'){echo 'active';}else{echo '';} ?>">
       <a href="<?= base_url(); ?>distributor">
         <i class="fa fa-handshake-o"></i>
-        <span>Data Distributor</span>
+        <span>Distributor</span>
         <!-- <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span> -->
       </a>
     </li>
-    <li>
-      <a href="<?= base_url(); ?>admin/destination">
+    <li class="<?php if($this->uri->segment(1) == 'destination'){echo 'active';}else{echo '';} ?>">
+      <a href="<?= base_url(); ?>destination">
         <i class="fa fa-rocket"></i>
-        <span>Data Destination</span>
+        <span>Destination</span>
+      </a>
+    </li> 
+    <li class="">
+      <a href="<?= base_url(); ?>jenis">
+        <i class="glyphicon glyphicon-list-alt"></i>
+        <span>Jenis Barang</span>
       </a>
     </li>
     
@@ -57,7 +61,7 @@
       </a>
       <ul class="treeview-menu">
        
-        <li class=""><a href="<?= base_url(); ?>kain/jenis"><i class="fa fa-circle-o"></i> Jenis Kain</a></li>
+   <!--      <li class=""><a href=""><i class="fa fa-circle-o"></i> Jenis Kain</a></li> -->
 
         <li class="<?php if($this->uri->segment(1) == "kain"){echo "active";}else{echo "";} ?>"><a href="<?= base_url(); ?>kain">
           <i class="<?php if($this->uri->segment(1) == "kain"){echo "fa fa-circle-o text-yellow";}else{echo "fa fa-circle-o";} ?>"></i> Data Kain Masuk</a>
@@ -75,7 +79,7 @@
       </a>
       <ul class="treeview-menu">
         <li><a href="pages/tables/simple.html">
-          <i class="<?php if($this->uri->segment(2) == "jenis"){echo "fa fa-circle-o text-yellow";}else{echo "fa fa-circle-o";} ?>"></i> Jenis Benang</a></li>
+         
         <li><a href="<?= base_url(); ?>benang">
           <i class="<?php if($this->uri->segment(1) == "benang"){echo "fa fa-circle-o text-yellow";}else{echo "fa fa-circle-o";} ?>"></i> Data Benang Masuk</a></li>
         <li><a href="<?= base_url(); ?>benang_out"><i class="<?php if($this->uri->segment(1) == "benang_out"){echo "fa fa-circle-o text-yellow";}else{echo "fa fa-circle-o";} ?>"></i> Data Benang Keluar</a></li>
