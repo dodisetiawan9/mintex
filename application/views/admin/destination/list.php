@@ -185,21 +185,21 @@
   </div>
 </div>
 <!-- end modal benang -->
-<!-- modal benang -->
+<!-- modal kain -->
 <div class="modal fade" id="kain">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times</button>
-        <h4>Tambah Data Distributor</h4>
+        <h4>Tambah Data Destination</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal form-label-left" method="Post" action="<?= base_url(); ?>distributor/add_kain">
+        <form class="form-horizontal form-label-left" method="Post" action="<?= base_url(); ?>destination/add_kain">
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Distrbutor 
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Destination 
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="dist" name="dist" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter Distributor">
+                  <input type="text" id="dest" name="dest" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter Destination">
                 </div>
               </div>
               <div class="item form-group">
