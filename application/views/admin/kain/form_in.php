@@ -4,7 +4,6 @@
 		<small> / <?= $subtitle; ?> </small> <small> > <?= $ontitle; ?> </small>
 	</h1>
 </section>
-
 <section class="content">
 	<div class="row">
 		<div class="col-md-12 col-sm-12 col-xs-12">
@@ -13,6 +12,7 @@
 					
 				</div>
 				<div class="box-body">
+					<?= validation_errors('<p style="color:red">','</p>'); ?>
 
 					<form class="form-horizontal form-label-left" method="Post" action="">
 		          <div class="item form-group">
@@ -84,7 +84,7 @@
 		            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gl">GL 
 		            </label>
 		            <div class="col-md-6 col-sm-6 col-xs-12">
-		              <input type="number" id="gl" name="gl" required="" class="form-control col-md-7 col-xs-12" value="<?= $gl; ?>">
+		              <input type="text" id="gl" name="gl" required="" class="form-control col-md-7 col-xs-12" value="<?= $gl; ?>">
 		            </div>
 		          </div>
 		          <div class="item form-group">

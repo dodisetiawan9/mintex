@@ -20,7 +20,8 @@
 								$dest = $data->nama_dest;
 								$alamat = $data->alamat;
 								$telepon = $data->telepon;
-								$tgl = $data->tgl;
+								$tanggal = date_create($data->tgl);
+								$tgl = date_format($tanggal, 'd M Y');
 							?>
 							<table class="table tbl-detail">
 								<tr>

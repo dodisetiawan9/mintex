@@ -72,7 +72,9 @@
 </head>
 <body>
 	<?php  
-		$ident = $dataout->row();
+		$ident 		= $dataout->row();
+		$tanggal 	= date_create($ident->tgl);
+		$tgl 			= date_format($tanggal, 'd M Y');
 	?>
 	<div id="outtable">
 		<div class="">
@@ -88,7 +90,7 @@
 				</tr>
 				<tr>
 					<th align="left">Tanggal</th>
-					<td>: <?= $ident->tgl; ?></td>
+					<td>: <?= $tgl; ?></td>
 				</tr>
 			</table>
 		</div>

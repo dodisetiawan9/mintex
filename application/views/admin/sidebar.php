@@ -45,7 +45,7 @@
         <span>Destination</span>
       </a>
     </li> 
-    <li class="">
+    <li class="<?php if($this->uri->segment(1) == 'jenis'){echo 'active';}else{echo '';} ?>">
       <a href="<?= base_url(); ?>jenis">
         <i class="glyphicon glyphicon-list-alt"></i>
         <span>Jenis Barang</span>

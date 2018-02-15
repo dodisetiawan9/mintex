@@ -55,17 +55,16 @@
              <!--  benang -->
               <div role="tabpanel" class="tab-pane <?php if($notif == "added" || $notif == "deleted" || $notif == "updated"){echo 'active';} ?>" id="home">
                 <div class="well">
-                    <h4 class="tit">Data Distributor Benang</h4>
+                    <h4 class="tit">Data Jenis Benang</h4>
                     <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#benang"><i class="fa fa-plus"></i> Tambah</button>
                     <hr>
                   <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover">
+                    <table class="table table-bordered table-striped table-hover" id="">
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>Distributor</th>
-                          <th>Alamat</th>
-                          <th>Telepon</th>
+                          <th>Nama Benang</th>
+                          <th>Status</th>
                           <th class="text-center">Opsi</th>
                         </tr>
                       </thead>
@@ -75,12 +74,20 @@
                           foreach ($benang->result() as $key) {  ?>
                             <tr>
                               <td><?= $no++; ?></td>
-                              <td><?= $key->nama_dist; ?></td>
-                              <td><?= $key->alamat; ?></td>
-                              <td><?= $key->telepon; ?></td>
+                              <td><?= $key->nama_benang; ?></td>
+                              <td>
+                                <?php
+                                  if($key->status == "on"){
+                                    echo '<span class="label label-success">Aktif</span>';
+                                  }else{
+                                    echo '<span class="label label-danger">Tidak Aktif</span>';
+                                  } 
+                                ?>
+                                  
+                              </td>
                               <td class="text-center">
-                                <a href="<?= base_url(); ?>distributor/update/<?= $key->id_dist_benang; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                <a href="<?= base_url(); ?>distributor/delete/<?= $key->id_dist_benang; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></a>
+                                <a href="<?= base_url(); ?>jenis/update/<?= $key->id_benang; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                <a href="<?= base_url(); ?>jenis/delete/<?= $key->id_benang; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></a>
                               </td>
                             </tr>
                          
@@ -97,39 +104,45 @@
             <!-- kain -->
               <div role="tabpanel" class="tab-pane  <?php if($not_kain == "added" || $not_kain == "deleted" || $not_kain == "updated"){echo 'active';} ?>" id="profile">
                 <div class="well">
-                <h4 class="tit">Data Distributor Kain</h4>
+                <h4 class="tit">Data Jenis Kain</h4>
                   <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#kain"><i class="fa fa-plus"></i> Tambah</button>
                   <hr>
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Distributor</th>
-                          <th>Alamat</th>
-                          <th>Telepon</th>
-                          <th class="text-center">Opsi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php  
-                          $no=1;
-                          foreach ($kain->result() as $val) {  ?>
-                            <tr>
-                              <td><?= $no++; ?></td>
-                              <td><?= $val->nama_dist; ?></td>
-                              <td><?= $val->alamat; ?></td>
-                              <td><?= $val->telepon; ?></td>
-                              <td class="text-center">
-                                <a href="<?= base_url(); ?>distributor/kain_update/<?= $val->id_distributor; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                <a href="<?= base_url(); ?>distributor/kain_delete/<?= $val->id_distributor; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></a>
-                              </td>
-                            </tr>
-                         
-                       <?php } ?>
-                      </tbody>
-                    </table>
-                  </div>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Nama Kain</th>
+                        <th>Status</th>
+                        <th class="text-center">Opsi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php  
+                        $no=1;
+                        foreach ($kain->result() as $val) {  ?>
+                          <tr>
+                            <td><?= $no++; ?></td>
+                            <td><?= $val->nama_kain; ?></td>
+                            <td>
+                              <?php
+                                  if($val->status == "on"){
+                                    echo '<span class="label label-success">Aktif</span>';
+                                  }else{
+                                    echo '<span class="label label-danger">Tidak Aktif</span>';
+                                  } 
+                                ?>
+                            </td>
+                            <td class="text-center">
+                              <a href="<?= base_url(); ?>jenis/kain_update/<?= $val->id_kain; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                              <a href="<?= base_url(); ?>jenis/kain_delete/<?= $val->id_kain; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></a>
+                            </td>
+                          </tr>
+                       
+                     <?php } ?>
+                    </tbody>
+                  </table>
+                </div>
               </div>
               </div>
             <!-- end kain -->
@@ -149,31 +162,28 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times</button>
-        <h4>Tambah Data Distributor</h4>
+        <h4>Tambah Jenis Benang</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal form-label-left" method="Post" action="<?= base_url(); ?>distributor/add_benang">
+        <form class="form-horizontal form-label-left" method="Post" action="<?= base_url(); ?>jenis/add_benang">
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Distrbutor 
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Jenis 
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="dist" name="dist" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter Distributor">
+                  <input type="text" id="jenis" name="jenis" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter Jenis Benang">
                 </div>
               </div>
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Alamat 
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Status
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="alamat" name="alamat" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter Alamat">
+                  <select name="status" id="" class="form-control">
+                    <option value="" selected disabled>-- Pilih --</option>
+                      <option value="on">Aktif</option>
+                      <option value="off">Nonaktif</option>                      
+                  </select>
                 </div>
-              </div> 
-               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Telepon 
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="number" id="telepon" name="telepon" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter Phone">
-                </div>
-              </div>              
+              </div>        
               <hr>
               <div class="ln_solid"></div>
               <div class="form-group">
@@ -187,37 +197,34 @@
   </div>
 </div>
 <!-- end modal benang -->
-<!-- modal benang -->
+<!-- modal kain -->
 <div class="modal fade" id="kain">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times</button>
-        <h4>Tambah Data Distributor</h4>
+        <h4>Tambah Jenis Kain</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal form-label-left" method="Post" action="<?= base_url(); ?>distributor/add_kain">
+        <form class="form-horizontal form-label-left" method="Post" action="<?= base_url(); ?>jenis/add_kain">
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Distrbutor 
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Jenis 
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="dist" name="dist" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter Distributor">
+                  <input type="text" id="jenis" name="jenis" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter Jenis Kain">
                 </div>
               </div>
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Alamat 
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Status
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="alamat" name="alamat" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter Alamat">
+                  <select name="status" id="" class="form-control">
+                    <option value="" selected disabled>-- Pilih --</option>
+                      <option value="on">Aktif</option>
+                      <option value="off">Nonaktif</option>                      
+                  </select>
                 </div>
-              </div> 
-               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Telepon 
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="number" id="telepon" name="telepon" required="required" class="form-control col-md-7 col-xs-12" placeholder="Enter Phone">
-                </div>
-              </div>              
+              </div>        
               <hr>
               <div class="ln_solid"></div>
               <div class="form-group">

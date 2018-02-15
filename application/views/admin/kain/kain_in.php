@@ -49,6 +49,7 @@
 							<thead>
 								<tr>
 									<th>#</th>
+									<th>Tanggal</th>
 									<th>Distributor</th>
 									<th>Jenis Kain</th>
 									<th>GL</th>
@@ -62,17 +63,56 @@
 							<tbody>
 								<?php  
 									$no=1;
+
 									foreach ($kain->result() as $key) : ?>
+
+									<?php  
+										$gll = explode(",", number_format($key->gl,2,',','.'));
+										$mtr = explode(",", number_format($key->meter,2,',','.'));
+										$klg = explode(",", number_format($key->kg,2,',','.'));
+
+										$tanggal = date_create($key->tgl);
+										$tgl = date_format($tanggal, 'd M Y');
+									?>
 								<tr>
 									<td><?= $no++; ?></td>
+									<td><?= $tgl; ?></td>
 									<td><?= $key->nama_dist; ?></td>
 									<td><?= $key->nama_kain; ?></td>
-									<td><?= $key->gl; ?></td>
-									<td><?= number_format($key->meter,2,',','.'); ?></td>
-									<td><?= number_format($key->kg,2,',','.'); ?></td>
+									<td>
+										<?php
+											if($gll[1] == 00){
+												echo number_format($key->gl,0,',','.');
+											}
+											else{
+												echo number_format($key->gl,2,',','.');
+											} 
+										?>
+											
+									</td>
+									<td>
+										<?php
+											if($mtr[1] == 00){
+												echo number_format($key->meter,0,',','.');
+											}
+											else{
+												echo number_format($key->meter,2,',','.');
+											} 
+										?>
+										
+									</td>
+									<td>
+										<?php
+											if($klg[1] == 00){
+												echo number_format($key->kg,0,',','.');
+											}
+											else{
+												echo number_format($key->kg,2,',','.');
+											} 
+										?>
+									</td>
 									<td><?= 'Rp. '.number_format($key->harga,0,',','.'); ?></td>
 									<td class="text-center">
-										<a href="<?= base_url(); ?>kain/detail/<?= $key->id_kain_in; ?>" class="btn btn-info btn-sm"><i class="fa fa-search-plus"></i></a>
 										<a href="<?= base_url(); ?>kain/update_kain/<?= $key->id_kain_in; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
 										<a href="<?= base_url(); ?>kain/delete/<?= $key->id_kain_in; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Ingin Menghapus?')"><i class="fa fa-trash"></i></a>
 									</td>

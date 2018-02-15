@@ -55,10 +55,10 @@
              <!--  benang -->
               <div role="tabpanel" class="tab-pane <?php if($notif == "added" || $notif == "deleted" || $notif == "updated"){echo 'active';} ?>" id="home">
                 <div class="well">
-                  <div class="table-responsive">
                     <h4 class="tit">Data Distributor Benang</h4>
                     <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#benang"><i class="fa fa-plus"></i> Tambah</button>
                     <hr>
+                  <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover">
                       <thead>
                         <tr>
@@ -100,6 +100,7 @@
                 <h4 class="tit">Data Distributor Kain</h4>
                   <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#kain"><i class="fa fa-plus"></i> Tambah</button>
                   <hr>
+                <div class="table-responsive">
                   <table class="table table-bordered table-striped table-hover">
                     <thead>
                       <tr>
@@ -128,6 +129,7 @@
                      <?php } ?>
                     </tbody>
                   </table>
+                </div>
               </div>
               </div>
             <!-- end kain -->
