@@ -72,7 +72,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="<?= base_url(); ?>assets/img/avatar5.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Ujang</span>
+              <span class="hidden-xs">Admin</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -134,7 +134,7 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.0
+<!--       <b>Version</b> 1.0 -->
     </div>
     <strong>Copyright &copy; 2018 <a href="" style="color: grey">Mintex |</a> Inventory System</strong> 
   </footer>

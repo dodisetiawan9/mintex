@@ -47,9 +47,9 @@
 
 		            <!-- <label class="control-label col-md-1 col-sm-1 col-xs-12" for="meter">Cm 
 		            </label> -->
-		            <div class="col-md-1 col-sm-2 col-xs-4">
+		          <!--   <div class="col-md-1 col-sm-2 col-xs-4">
 		              <button type="button" class="col-md-12 btn btn-info btn-sm" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i> Add</button>
-		            </div>
+		            </div> -->
 
 		          </div>
 
@@ -75,9 +75,9 @@
 		              </select>
 
 		            </div>
-		            <div class="col-md-1 col-sm-2 col-xs-4">
+		           <!--  <div class="col-md-1 col-sm-2 col-xs-4">
 		              <button type="button" class="col-md-12 btn btn-info btn-sm" data-toggle="modal" data-target="#add"><i class="fa fa-plus"></i> Add</button>
-		            </div>
+		            </div> -->
 
 		          </div>
 		          <div class="item form-group">
@@ -132,6 +132,27 @@
 		            </div>
 		          </div>
 		         
+							<?php  
+								if(is_numeric($this->uri->segment(3))){
+							?>
+							<div class="item form-group">
+		            <label class="control-label col-md-3 col-sm-3 col-xs-8" for="status">Status Pembayaran
+		            </label>
+		            <div class="col-md-6 col-sm-6 col-xs-8">
+		              <select name="status" id="" class="form-control" required>
+		                <option value="" selected disabled>-- Pilih Status --</option>           
+		                <option value="1" <?php if($status_kain == 1){echo 'selected';} ?>> Pending</option>           
+		                <option value="2" <?php if($status_kain == 2){echo 'selected';} ?>> Lunas</option>           
+		                  
+		              </select>
+
+		            </div>
+		           <!--  <div class="col-md-1 col-sm-2 col-xs-4">
+		              <button type="button" class="col-md-12 btn btn-info btn-sm" data-toggle="modal" data-target="#add"><i class="fa fa-plus"></i> Add</button>
+		            </div> -->
+
+		          </div>
+		          <?php } ?>
 							<hr>
 		          <div class="ln_solid"></div>
 		          <div class="form-group">

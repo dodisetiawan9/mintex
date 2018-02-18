@@ -108,7 +108,7 @@ class Benang extends CI_Controller {
 		$data['harga']				= $this->input->post('harga');
 		$data['keterangan']		= $this->input->post('keterangan');
 
-		$data['jenis']				= $this->m_benang->get_all('t_benang');
+		$data['jenis']				= $this->m_benang->get_where('t_benang', array('status' => 'on'));
 		$data['distributor']	= $this->m_benang->get_all('t_dist_benang');
 
 		$this->template->admin('admin/benang/form_in', $data);

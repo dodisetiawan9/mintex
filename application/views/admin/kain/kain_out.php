@@ -49,11 +49,11 @@
 							<thead>
 								<tr>
 									<th>#</th>
+									<th>Tanggal</th>
 									<th>Destination</th>
-									<th>Jenis Kain</th>
-									<th>Meter</th>
-									<th>Kg</th>
-									<th>Harga</th>
+									
+								
+									<th>Status</th>
 									<th class="text-center">Opsi</th>
 								</tr>
 							</thead>
@@ -61,18 +61,31 @@
 							<tbody>
 								<?php 
 									$no=1;
-									foreach ($data->result() as $key): ?>
+									foreach ($data->result() as $key): 
+											$tanggal = date_create($key->tgl);
+											$tgl = date_format($tanggal, 'd M Y');
+									?>
+
 									<tr>
 										<td><?= $no++; ?></td>
+										<td><?= $tgl; ?></td>
 										<td><?= $key->nama_dest; ?></td>
-										<td><?= $key->nama_kain; ?></td>
-										<td><?= $key->meter; ?></td>
-										<td><?= $key->kg; ?></td>
-										<td><?= $key->harga; ?></td>
+										
+										
+										<td>
+											<?php
+											 	if($key->status_out != 1 ){
+											 		echo '<span class="label label-success"><i class="glyphicon glyphicon-ok"></i> Lunas</span>';
+											 	} 
+											 	else{
+	                      	echo '<span class="label label-warning"><i class="glyphicon glyphicon-exclamation-sign"></i> Pending</span>';
+	                    	} 
+											?>
+										</td>
 										<td class="text-center">
 											<a href="<?= base_url(); ?>kain_out/detail/<?= $key->id_kain_out; ?>" class="btn btn-info btn-sm"><i class="fa fa-search-plus"></i></a>
-											<a href="" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-											<a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+											<a href="<?= base_url(); ?>kain_out/update/<?= $key->id_kain_out; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+											<a href="<?= base_url(); ?>kain_out/delete/<?= $key->id_kain_out; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are You sure?')"><i class="fa fa-trash"></i></a>
 										</td>
 									</tr>
 								<?php endforeach ?>

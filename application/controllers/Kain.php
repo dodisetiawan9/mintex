@@ -36,6 +36,7 @@ class Kain extends CI_Controller {
 			$this->form_validation->set_rules('kg', 'Kilogram (Kg)', 'required|numeric');
 			$this->form_validation->set_rules('harga', 'Harga', 'required|numeric');
 			$this->form_validation->set_rules('distributor', 'Distributor', 'required|numeric');
+			$this->form_validation->set_rules('status', 'Status', 'required|numeric');
 
 			if($this->form_validation->run() == TRUE)
 			{
@@ -48,6 +49,7 @@ class Kain extends CI_Controller {
 					'harga'						=> $this->input->post('harga', TRUE),
 					'keterangan' 			=> $this->input->post('keterangan', TRUE),
 					'tgl'							=> $this->input->post('tgl', TRUE),
+					'status_kain'			=> 0
 				);
 
 				if($this->m_kain->insert('t_kain_in', $kain)){
@@ -87,9 +89,10 @@ class Kain extends CI_Controller {
 		$data['kg']						= $this->input->post('kg|numeric');
 		$data['harga']				= $this->input->post('harga|numeric');
 		$data['keterangan']		= $this->input->post('keterangan');
+		$data['status_kain']	= $this->input->post('status');
 
 		$data['distributor']	= $this->m_kain->get_all('t_distributor'); 
-		$data['jenis']				= $this->m_kain->get_all('t_kain'); 
+		$data['jenis']				= $this->m_kain->get_where('t_kain', array('status' => 'on')); 
 
 		$this->template->admin('admin/kain/form_in', $data);
 
@@ -131,6 +134,7 @@ class Kain extends CI_Controller {
 			$this->form_validation->set_rules('kg', 'Kilogram (Kg)', 'required|numeric');
 			$this->form_validation->set_rules('harga', 'Harga', 'required|numeric');
 			$this->form_validation->set_rules('distributor', 'Distributor', 'required|numeric');
+			$this->form_validation->set_rules('status', 'Status', 'required|numeric');
 
 			if($this->form_validation->run() == TRUE)
 			{
@@ -142,7 +146,8 @@ class Kain extends CI_Controller {
 						'kg'							=> $this->input->post('kg', TRUE),
 						'harga'						=> $this->input->post('harga', TRUE),
 						'keterangan' 			=> $this->input->post('keterangan', TRUE),
-						'tgl'							=> $this->input->post('tgl', TRUE)
+						'tgl'							=> $this->input->post('tgl', TRUE),
+						'status_kain'			=> 1
 					);
 
 					$this->m_kain->update('t_kain_in', $kain, array('id_kain_in' => $id_kain_in));
@@ -190,6 +195,7 @@ class Kain extends CI_Controller {
 			$data['keterangan'] 		= $key->keterangan;
 			$data['tgl']						= $key->tgl;
 			$data['nama']						= $key->nama_kain;
+			$data['status_kain']		= $key->status_kain;
 		}
 
 		$data['distributor']	= $this->m_kain->get_all('t_distributor'); 
@@ -206,25 +212,55 @@ class Kain extends CI_Controller {
 
 		$id_stok = $val_kain->id_kain;
 
-		$stok_in = $this->m_kain->get_where('t_stok_kain', array('id_kain' => $id_stok));
-		$val_stok = $stok_in->row();
+		if($val_kain->status_kain != 1){
+			$this->m_kain->delete('t_kain_in', array('id_kain_in' => $id_kain_in));
+		}
+		else{
+			$stok_in = $this->m_kain->get_where('t_stok_kain', array('id_kain' => $id_stok));
+			$val_stok = $stok_in->row();
 
-		$tl_gl   	= $val_stok->total_gl 	- $val_kain->gl;
-		$tl_mtr 	= $val_stok->total_meter - $val_kain->meter;
-		$tl_kg 		= $val_stok->total_kg 		- $val_kain->kg;
+			$tl_gl   	= $val_stok->total_gl 	- $val_kain->gl;
+			$tl_mtr 	= $val_stok->total_meter - $val_kain->meter;
+			$tl_kg 		= $val_stok->total_kg 		- $val_kain->kg;
 
 
-		$array_stok = array(
-			'total_gl'		=> $tl_gl,
-			'total_meter'	=> $tl_mtr,
-			'total_kg'		=> $tl_kg
-		);
-		$this->m_kain->update('t_stok_kain', $array_stok, array('id_kain' => $id_stok));
+			$array_stok = array(
+				'total_gl'		=> $tl_gl,
+				'total_meter'	=> $tl_mtr,
+				'total_kg'		=> $tl_kg
+			);
+			$this->m_kain->update('t_stok_kain', $array_stok, array('id_kain' => $id_stok));
 
-		$this->m_kain->delete('t_kain_in', array('id_kain_in' => $id_kain_in));
+			$this->m_kain->delete('t_kain_in', array('id_kain_in' => $id_kain_in));
+		}
+
+		
 		$this->session->set_flashdata('success', 'Data berhasil di hapus!');
 		redirect('kain');
 
+	}
+
+	public function detail()
+	{
+		$data['title']		= "Master Kain";
+		$data['subtitle']	= "Data Kain Masuk";
+		$data['ontitle']	= "Detail";
+		$id = $this->uri->segment(3);
+		$table = 't_kain_in ki JOIN t_kain k ON (ki.id_kain = k.id_kain) JOIN t_distributor d ON (ki.id_distributor = d.id_distributor)';
+		$data['detail'] = $this->m_kain->get_where($table, array('ki.id_kain_in' => $id));
+		// $dt = $detail->row();
+		
+		// $data['dest']				= $dt->nama_dest;
+		// $data['alamat']			= $dt->alamat;
+		// $data['telepon']		= $dt->telepon;
+		// $data['tgl']				= $dt->tgl;
+		// $data['nama_kain']	= $dt->nama_kain;
+		// $data['gl']					= $dt->gl;
+		// $data['meter']			= $dt->meter;
+		// $data['kg']					= $dt->kg;
+		// $data['harga']			= $dt->harga;
+
+		$this->template->admin('admin/kain/detail_in', $data);
 	}
 
 	function cek_login()

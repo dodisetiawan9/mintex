@@ -4,8 +4,6 @@
 			<?= $title; ?>
 			<small> / <?= $subtitle; ?> </small> <small> > <?= $ontitle; ?> </small>
 		</h1>
-
-		<a href="<?= base_url(); ?>kain_out/print/<?= $this->uri->segment(3); ?>" class="btn btn-default" target="_blank"><i class="fa fa-print"></i> Print Surat Jalan</a>
 	</section>
 </div>
 <section class="content">
@@ -17,7 +15,7 @@
 						<!-- <div class="table-responsive"> -->
 							<?php  
 								$data = $detail->row();
-								$dest = $data->nama_dest;
+								$dest = $data->nama_dist;
 								$alamat = $data->alamat;
 								$telepon = $data->telepon;
 								$tanggal = date_create($data->tgl);
@@ -38,7 +36,7 @@
 									<th class="col-md-1 col-sm-6 col-xs-2" style="float:">Status</th>
 									<td class="col-md-2 col-sm-6 col-xs-2">: 
 										<?php
-											 	if($data->status_out != 1 ){
+											 	if($data->status_kain != 1 ){
 											 		echo '<span class="label label-success"><i class="glyphicon glyphicon-ok"></i> Lunas</span>';
 											 	} 
 											 	else{
@@ -54,7 +52,7 @@
 							</table>
 						<br>
 						<br>
-						<h3 class="text-center">Detail Barang Keluar</h3>
+						<h3 class="text-center">Detail Barang Masuk</h3>
 						<hr>
 							<div class="table-responsive col-md-12 col-sm-12 col-xs-6">
 								<table class="table table-bordered table-striped table-hover">
@@ -67,6 +65,7 @@
 											<th class="text-center">Kg</th>
 											<th class="text-center">Harga</th>
 											<th class="text-center">Total</th>
+											<!-- <th class="text-center">Status</th> -->
 										</tr>
 									</thead>
 									<tbody>
@@ -116,21 +115,15 @@
 													</td>
 													<td><?= 'Rp. '.number_format($key->harga,0,',','.'); ?></td>
 													<td><?= 'Rp. '.number_format($total,0,',','.'); ?></td>
+													
 												</tr>
 										
 										<?php endforeach ?>
 									</tbody>
-									<td colspan="6" align="right"><b style="color:red">Subtotal</b></td>
-									<td><b><?= 'Rp. '.number_format($subtotal,0,',','.'); ?></b></td>
-									<tr>
-							  		<td colspan="7" class="bor" style="padding: 10px"><b>Keterangan : </b>
-							  			<br />
-							  			<br />
-							  			<?= $key->keterangan; ?>
-							  		</td>
-							  	</tr>
+									
 								</table>
 							</div>
+
 							<button type="button" class="btn btn-info" onclick="window.history.go(-1)"><< Kembali</button>
 					</div>
 				</div>

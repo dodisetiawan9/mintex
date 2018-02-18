@@ -25,7 +25,7 @@
 		          <div class="item form-group">
 		            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="jenis">Distributor
 		            </label>
-		            <div class="col-md-5 col-sm-3 col-xs-8">
+		            <div class="col-md-6 col-sm-3 col-xs-8">
 		              <select name="distributor" id="" class="form-control" required>
 		                <option value="<?= $dist; ?>" selected disabled>-- Pilih Distributor --</option>
 										<?php
@@ -45,9 +45,9 @@
 
 		            <!-- <label class="control-label col-md-1 col-sm-1 col-xs-12" for="meter">Cm 
 		            </label> -->
-		            <div class="col-md-1 col-sm-2 col-xs-4">
+		            <!-- <div class="col-md-1 col-sm-2 col-xs-4">
 		              <button type="button" class="col-md-12 btn btn-info btn-sm" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i> Add</button>
-		            </div>
+		            </div> -->
 
 		          </div>
 

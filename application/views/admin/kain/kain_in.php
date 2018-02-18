@@ -31,14 +31,14 @@
 			      }
 			      if($this->session->flashdata('success'))
 			      {
-			        echo '<div class="alert alert-success alert-message">';
+			        echo '<div class="alert alert-info alert-message">';
 			        echo $this->session->flashdata('success');
 			        echo '</div>';
 
 			      }
 			      if($this->session->flashdata('fail'))
 			      {
-			        echo '<div class="alert alert-danger alert-message">';
+			        echo '<div class="alert alert-info alert-message">';
 			        echo $this->session->flashdata('fail');
 			        echo '</div>';
 
@@ -52,10 +52,11 @@
 									<th>Tanggal</th>
 									<th>Distributor</th>
 									<th>Jenis Kain</th>
-									<th>GL</th>
+					<!-- 				<th>GL</th>
 									<th>Meter</th>
-									<th>Kg</th>
+									<th>Kg</th> -->
 									<th>Harga</th>
+									<th>Status</th>
 									<th class="text-center">Opsi</th>
 								</tr>
 							</thead>
@@ -79,42 +80,22 @@
 									<td><?= $tgl; ?></td>
 									<td><?= $key->nama_dist; ?></td>
 									<td><?= $key->nama_kain; ?></td>
+									<td><?= 'Rp. '.number_format($key->harga,0,',','.'); ?></td>
 									<td>
 										<?php
-											if($gll[1] == 00){
-												echo number_format($key->gl,0,',','.');
-											}
-											else{
-												echo number_format($key->gl,2,',','.');
-											} 
+										 	if($key->status_kain != 1 ){
+										 		echo '<span class="label label-success"><i class="glyphicon glyphicon-ok"></i> Lunas</span>';
+										 	} 
+										 	else{
+                      	echo '<span class="label label-warning"><i class="glyphicon glyphicon-exclamation-sign"></i> Pending</span>';
+                    	} 
 										?>
 											
 									</td>
-									<td>
-										<?php
-											if($mtr[1] == 00){
-												echo number_format($key->meter,0,',','.');
-											}
-											else{
-												echo number_format($key->meter,2,',','.');
-											} 
-										?>
-										
-									</td>
-									<td>
-										<?php
-											if($klg[1] == 00){
-												echo number_format($key->kg,0,',','.');
-											}
-											else{
-												echo number_format($key->kg,2,',','.');
-											} 
-										?>
-									</td>
-									<td><?= 'Rp. '.number_format($key->harga,0,',','.'); ?></td>
 									<td class="text-center">
+										<a href="<?= base_url(); ?>kain/detail/<?= $key->id_kain_in; ?>" class="btn btn-info btn-sm"><i class="fa fa-search-plus"></i><a>
 										<a href="<?= base_url(); ?>kain/update_kain/<?= $key->id_kain_in; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-										<a href="<?= base_url(); ?>kain/delete/<?= $key->id_kain_in; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Ingin Menghapus?')"><i class="fa fa-trash"></i></a>
+										<a href="<?= base_url(); ?>kain/delete/<?= $key->id_kain_in; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></a>
 									</td>
 								</tr>
 

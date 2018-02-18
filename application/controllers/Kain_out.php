@@ -17,7 +17,7 @@ class Kain_out extends CI_Controller {
 		$data['subtitle']	= "Data Kain Keluar";
 		$dtaa['ontitle']	= "Tambah data";
 
-		$table = 't_kain_out ko JOIN t_detail_out do ON (ko.id_kain_out = do.id_kain_out) JOIN t_dest d ON (ko.id_dest = d.id_dest) JOIN t_kain k ON (do.id_kain = k.id_kain)';
+		$table = 't_kain_out ko JOIN t_dest d ON (ko.id_dest = d.id_dest)';
 		$data['data']	= $this->m_kain->order_by($table, 'ko.id_kain_out', 'DESC');
 
 		$this->template->admin('admin/kain/kain_out', $data);
@@ -74,7 +74,7 @@ class Kain_out extends CI_Controller {
 					'id_dest'			=> $this->input->post('destination', TRUE),
 					'keterangan'	=> $this->input->post('keterangan', TRUE),
 					'tgl'					=> $this->input->post('tgl', TRUE),
-					'status'			=> 1
+					'status_out'	=> 1
 				);
 
 				if($this->m_kain->insert('t_kain_out', $kain_out)){
@@ -153,6 +153,43 @@ class Kain_out extends CI_Controller {
 		$this->template->admin('admin/kain/form_out', $data);
 	}
 
+	public function update()
+	{
+		$data['title'] 		= "Master Kain";
+		$data['subtitle'] = "Data Kain Keluar";
+		$data['ontitle']	= "Update Data";
+		$id = $this->uri->segment(3);
+		//proses
+		if($this->input->post('submit', TRUE) == 'Submit'){
+			$this->form_validation->set_rules('tgl' ,'Tanggal', 'required');
+			$this->form_validation->set_rules('destination' ,'Destination', 'required');
+			$this->form_validation->set_rules('status' ,'Status', 'required');
+
+			if($this->form_validation->run() == TRUE)
+			{
+				$kain_out = array(
+					'id_dest'			=> $this->input->post('destination', TRUE),
+					'keterangan'	=> $this->input->post('keterangan', TRUE),
+					'tgl'					=> $this->input->post('tgl', TRUE),
+					'status_out'	=> $this->input->post('status', TRUE)
+				);
+
+				$this->m_kain->update('t_kain_out', $kain_out, array('id_kain_out' => $id));
+			}
+			$this->session->set_flashdata('alert', 'Data berhasil diupdate!');
+			redirect('kain_out');
+		}
+
+		//endproses
+
+		$table = 't_kain_out ko JOIN t_detail_out do ON (ko.id_kain_out = do.id_kain_out) JOIN t_dest d ON (ko.id_dest = d.id_dest) JOIN t_kain k ON (do.id_kain = k.id_kain)';
+		$data['dest']	= $this->m_kain->get_all('t_dest');
+
+		$data['edit']	= $this->m_kain->get_where($table, array('ko.id_kain_out' => $id));
+		
+		$this->template->admin('admin/kain/edit_out', $data);
+	}
+
 	public function detail()
 	{
 		$data['title']		= "Master Kain";
@@ -222,8 +259,38 @@ class Kain_out extends CI_Controller {
 
 	public function delete()
 	{
-		$this->session->unset_userdata('dataKain');
-		redirect('kain_out/add_item');
+		$id 			= $this->uri->segment(3);
+		$table 		= 't_kain_out ko JOIN t_detail_out do ON (ko.id_kain_out = do.id_kain_out)';
+		$kain 		= $this->m_kain->get_where($table, array('ko.id_kain_out' => $id));
+		$val    	= $kain->row();
+		$id_kain	= $val->id_kain;
+		$status   = $val->status_out;
+
+		if($status != 1){
+			$this->m_kain->delete('t_kain_out', array('id_kain_out' => $id));
+			$this->m_kain->delete('t_detail_out', array('id_kain_out' => $id));
+		}else{
+
+				$stok = $this->m_kain->get_where('t_stok_kain', array('id_kain' => $id_kain))->row();
+
+				$total_gl 		= $stok->total_gl		 + $val->gl;
+				$total_meter 	= $stok->total_meter + $val->meter;
+				$total_kg 		= $stok->total_kg		 + $val->kg;
+
+				$total_stok = array(
+					'total_gl'		=> $total_gl,
+					'total_meter'	=> $total_meter,
+					'total_kg'		=> $total_kg
+				);
+
+				$this->m_kain->update('t_stok_kain', $total_stok, array('id_kain' => $id_kain));
+				$this->m_kain->delete('t_kain_out', array('id_kain_out' => $id));
+				$this->m_kain->delete('t_detail_out', array('id_kain_out' => $id));
+
+		}
+		
+		$this->session->set_flashdata('alert', 'Data berhasil dihapus!');
+		redirect('kain_out');
 	}
 
 	function cek_login()
