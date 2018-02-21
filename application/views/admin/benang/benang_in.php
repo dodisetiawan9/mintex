@@ -54,6 +54,7 @@
 									<th>Jenis Benang</th>
 									<th>Banyaknya</th>
 									<th>Netto</th>
+									<th>Status</th>
 									<th class="text-center">Opsi</th>
 								</tr>
 							</thead>
@@ -61,10 +62,13 @@
 							<tbody>
 								<?php  
 									$no=1;
-									foreach ($data->result() as $key) { ?>
+									foreach ($data->result() as $key) { 
+										$tanggal = date_create($key->tgl);
+										$tgl = date_format($tanggal, 'd M Y');
+									?>
 										<tr>
 											<td><?= $no++; ?></td>
-											<td><?= $key->tgl; ?></td>
+											<td><?= $tgl; ?></td>
 											<td><?= $key->nama_dist; ?></td>
 											<td><?= $key->nama_benang; ?></td>
 											<td>
@@ -77,9 +81,20 @@
 												<?php if($key->ball <= 0){echo $key->kg.' '.'Kg';}elseif($key->kg <= 0){echo $key->ball.' '.'Ball';} ?>
 												
 											</td>
+											<td>
+												<?php
+												 	if($key->status_bng != 1 ){
+												 		echo '<span class="label label-success"><i class="glyphicon glyphicon-ok"></i> Lunas</span>';
+												 	} 
+												 	else{
+		                      	echo '<span class="label label-warning"><i class="glyphicon glyphicon-exclamation-sign"></i> Pending</span>';
+		                    	} 
+										?>
+											</td>
 											<td class="text-center">
-												<a href="" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-												<a href="" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure??')"><i class="fa fa-trash"></i></a>
+												<a href="" class="btn btn-info btn-sm"><i class="fa fa-search-plus"></i></a>
+												<a href="<?= base_url(); ?>benang/update/<?= $key->id_benang_in; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+												<a href="<?= base_url(); ?>benang/delete/<?= $key->id_benang_in; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure??')"><i class="fa fa-trash"></i></a>
 											</td>
 										</tr>
 								<?php } ?>
