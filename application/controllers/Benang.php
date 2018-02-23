@@ -76,7 +76,7 @@ class Benang extends CI_Controller {
 					$total_box 		= $key->total_box + $box;
 					$total_karung = $key->total_karung + $karung;
 					$total_ball 	= $key->total_ball + $ball;
-					$total_kg 		= $key->total_ball + $kg;
+					$total_kg 		= $key->total_kg + $kg;
 
 					$total = array(
 						'id_benang'				=> $this->input->post('jenis', TRUE),

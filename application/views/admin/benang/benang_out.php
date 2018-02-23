@@ -50,16 +50,37 @@
 								<tr>
 									<th>#</th>
 									<th>Tgl</th>
-									<th>Distributor</th>
-									<th>Jenis Benang</th>
-									<th>Banyaknya</th>
-									<th>Netto</th>
+									<th>Destination</th>
+									<th>Status</th>
 									<th class="text-center">Opsi</th>
 								</tr>
 							</thead>
 
 							<tbody>
-							
+								<?php 
+									$no=1;
+									foreach ($data->result() as $key): ?>
+										<tr>
+											<td><?= $no++; ?></td>
+											<td><?= $key->tgl; ?></td>
+											<td><?= $key->nama_dest; ?></td>
+											<td>
+												<?php
+											 	if($key->status_bout != 1 ){
+											 		echo '<span class="label label-success"><i class="glyphicon glyphicon-ok"></i> Lunas</span>';
+											 	} 
+											 	else{
+	                      	echo '<span class="label label-warning"><i class="glyphicon glyphicon-exclamation-sign"></i> Pending</span>';
+	                    	} 
+											?>
+											</td>
+											<td class="text-center">
+												<a href="<?= base_url(); ?>benang_out/detail/<?= $key->id_benang_out; ?>" class="btn btn-info btn-sm"><i class="fa fa-search-plus"></i></a>
+												<a href="<?= base_url(); ?>benang_out/update/<?= $key->id_benang_out; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+												<a href="<?= base_url(); ?>benang_out/delete/<?= $key->id_benang_out; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are You sure?')"><i class="fa fa-trash"></i></a>
+											</td>
+										</tr>
+								<?php endforeach ?>
 								
 							</tbody>
 						</table>

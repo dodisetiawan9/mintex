@@ -89,7 +89,7 @@
     <li></li>
     <li>
       <a href="<?= base_url(); ?>admin/laporan">
-        <i class="fa fa-bar-chart"></i> <span>Laporan</span>
+        <!-- <i class="fa fa-bar-chart"></i> <span>Laporan</span> -->
       </a>
     </li>
     <li class="treeview"></li>

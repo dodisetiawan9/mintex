@@ -83,10 +83,19 @@
       </div>
     </div>
     <!-- ./col -->
+
+    
   </div>
   <!-- /.row -->
   <!-- Main row -->
-  <div class="row"></div>
+  <div class="box">
+    <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid green;margin: 20px 0px;">
+      <div class="alert alert-default">
+        <h3 class="text-center" style="color:red;">WARNING!</h3>
+        <p class="text-center">Halaman Dasboard masih dalam tahap Develop!</p>
+      </div>
+    </div>
+  </div>
   <!-- /.row (main row) -->
 
 </section>

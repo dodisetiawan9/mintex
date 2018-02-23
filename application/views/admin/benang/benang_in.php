@@ -78,7 +78,13 @@
 												?>
 											</td>
 											<td>
-												<?php if($key->ball <= 0){echo $key->kg.' '.'Kg';}elseif($key->kg <= 0){echo $key->ball.' '.'Ball';} ?>
+												<?php 
+														if($key->ball <= 0){
+															echo $key->kg.' '.'Kg';
+														}elseif($key->kg <= 0){
+															echo $key->ball.' '.'Ball';
+														} 
+												?>
 												
 											</td>
 											<td>

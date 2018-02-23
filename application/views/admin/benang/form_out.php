@@ -16,8 +16,8 @@
 					
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i> Tambah</button>
 					
-					<?php if($this->session->userdata('dataKain')) : ?>
-					<a href="<?= base_url(); ?>kain_out/delete" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"> Hapus Semua</i></a>
+					<?php if($this->session->userdata('dataBenang')) : ?>
+					<a href="<?= base_url(); ?>benang_out/delete" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"> Hapus Semua</i></a>
 
 					<br>
 					<br>
@@ -26,40 +26,57 @@
 							<thead>
 								<tr>
 									<th class="text-center">No</th>
-									<th class="text-center">Jenis Kain</th>
-									<th class="text-center">GL</th>
-									<th class="text-center">Meter</th>
-									<th class="text-center">Kg</th>
+									<th class="text-center">Jenis Benang</th>
+									<th class="text-center">Banyaknya</th>
+									<th class="text-center">Netto</th>
 									<th class="text-center">Harga</th>
 									<th class="text-center">Total</th>
+									<!-- <th class="text-center">Total</th> -->
 								</tr>
 							</thead>
 							<tbody>
 
 						<?php
-							if($this->session->userdata('dataKain')) :
+							if($this->session->userdata('dataBenang')) :
 								$no=1;
 								$subtotal = 0;	 
-								foreach ($this->session->userdata('dataKain') as $value): ?>
+								foreach ($this->session->userdata('dataBenang') as $value): ?>
 									<?php foreach ($value as $row){ 
-										$total = $row['meter'] * $row['harga'];
+										if($row['b_box'] == 0 && $row['kg'] == 0){
+											$total = $row['harga'] * $row['ball'];
+										}elseif($row['b_karung'] == 0 && $row['ball'] == 0){
+											$total = $row['harga'] * $row['kg'];
+										}
 										$subtotal = $subtotal + $total;
 									?>
 										<tr>
 											<td class="text-center"><?= $no++; ?></td>
-											<td><?= $row['nama_kain']; ?></td>
-											<td class="text-center"><?= $row['gl']; ?></td>
-											<td><?= number_format($row['meter'],2,',','.'); ?></td>
-											<td><?= number_format($row['kg'],2,',','.'); ?></td>
-											<td><?= 'Rp. '.number_format($row['harga'],0,',','.'); ?></td>
-											<td><?= 'Rp. '.number_format($row['harga'] * $row['meter'],0,',','.') ?></td>
+											<td class="text-center"><?= $row['nama_benang']; ?></td>
+											<td class="text-center">
+												<?php  
+													if($row['b_karung'] <= 0){echo $row['b_box'].' '.'Box';}
+													elseif($row['b_box'] <= 0){echo $row['b_karung'].' '.'karung';}
+												?>
+											</td>
+											<td class="text-center">
+												<?php 
+														if($row['ball'] <= 0){
+															echo $row['kg'].' '.'Kg';
+														}elseif($row['kg'] <= 0){
+															echo $row['ball'].' '.'Ball';
+														} 
+												?>
+											</td>
+											<td class="text-center"><?= 'Rp. '.number_format($row['harga'],0,',','.'); ?></td>
+											<td><?= 'Rp. '.number_format($total,0,',','.'); ?></td>
+								
 										</tr>
 									<?php } ?>
 							<?php endforeach ?>
 						
 
 							</tbody>
-							<td colspan="6" align="right"><b style="color:red">Subtotal</b></td>
+							<td colspan="5" align="right"><b style="color:red">Subtotal</b></td>
 							<td><b><?= 'Rp. '.number_format($subtotal,0,',','.'); ?></b></td>
 						<?php endif ?>
 						</table>
@@ -143,7 +160,7 @@
 				</div>
 				<div class="modal-body">
 					<!-- form input -->
-						<form class="form-horizontal form-label-left" method="Post" action="<?= base_url(); ?>kain_out/collect">
+						<form class="form-horizontal form-label-left" method="Post" action="<?= base_url(); ?>benang_out/collect">
 
 		          <div class="item form-group">
 		            <label class="control-label col-md-3 col-sm-3 col-xs-8" for="jenis">Jenis Benang
@@ -173,7 +190,7 @@
 
 		          </div>
 		           <div class="item form-group">
-		            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kg">Box / Karung 
+		            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kg">Banyaknya 
 		            </label>
 		            <div class="col-md-5 col-sm-6 col-xs-12">
 		              <input type="text" id="bk" name="bk" required="required" class="form-control col-md-7 col-xs-12" placeholder="Exs : 30" value="<?= $bk; ?>">
@@ -209,7 +226,7 @@
 		            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="harga">Harga 
 		            </label>
 		            <div class="col-md-8 col-sm-6 col-xs-12">
-		              <input type="number" id="harga" name="harga" required="required" class="form-control col-md-7 col-xs-12" value="<?= $harga; ?>" placeholder="Exs : 140000">
+		              <input type="number" id="harga" name="harga" required="required" class="form-control col-md-7 col-xs-12" value="" placeholder="Exs : 140000">
 		            </div>
 		          </div>
 		         
@@ -230,3 +247,4 @@
 		</div>
 	</div>
 <!-- end modal -->
+

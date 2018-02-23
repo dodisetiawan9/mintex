@@ -7,7 +7,9 @@ class Admin extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('template');
+
 	}
+	
 	public function index()
 	{
 		$this->cek_login();

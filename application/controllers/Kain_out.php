@@ -61,7 +61,7 @@ class Kain_out extends CI_Controller {
 		$data['title']		= "Master Kain";
 		$data['subtitle']	= "Data Kain Keluar";
 		$data['ontitle']	= "Tambah data";
-
+		
 
 		if($this->input->post('additem') == "Add")
 		{
