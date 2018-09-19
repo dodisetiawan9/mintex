@@ -9,93 +9,215 @@
   </ol>
 </section>
 
+
+
 <!-- Main content -->
 <section class="content">
 
-  <?php  
-   if($this->session->flashdata('success'))
-    {
-      echo '<div class="alert alert-info alert-message">';
-      echo $this->session->flashdata('success');
-      echo '</div>';
+  <!-- content -->
 
-    }
-  ?>
-  <!-- Small boxes (Stat box) -->
-  <div class="row">
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-aqua">
-        <div class="inner">
-          <h3>150</h3>
+   <div class="row">
+    <div class="col-md-6 col-kain">
+      <!-- form select -->
+          <div class="box-header">
+            <h3>Stok Data Stok Kain</h3>
+          </div>
+          
+           <form action="" method="POST" class="searc-cn">
+           <div class="col-md-10"> 
+            <select name="jenis_kain" id="" class="form-control">
+             
+              <option value="" selected disabled>-- Pilih Jenis Kain --</option>
 
-          <p>Total</p>
-        </div>
-        <div class="icon">
-         <!--  <i class="ion ion-bag"></i> -->
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-green">
-        <div class="inner">
-          <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <?php foreach ($kain->result() as $val): ?>
+                <option value="<?= $val->id_kain; ?>"><?= $val->nama_kain; ?></option>
+              <?php endforeach ?>
+            </select>
+            </div>
+            <div class="col-md-2 cari">
+              
+            <button type="submit" name="submit_kain" value="Submit" class="btn btn-primary btn-block"><i class="fa fa-search"></i></button>
+            </div>
 
-          <p>Total</p>
-        </div>
-        <div class="icon">
-          <!-- <i class="ion ion-stats-bars"></i> -->
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-yellow">
-        <div class="inner">
-          <h3>44</h3>
+           </form>
+            <br>
+            <br>
+            <br>
 
-          <p>Total</p>
-        </div>
-        <div class="icon">
-          <!-- <i class="ion ion-person-add"></i> -->
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-red">
-        <div class="inner">
-          <h3>65</h3>
+  
+        <!-- endform select -->
+        <?php  
+          if(@!$this->input->post('submit_kain', TRUE) == 'Submit'){
+            echo '<p class="text-center">Pilih jenis kain untuk melihat stok</p>';
+          }else{
 
-          <p>Total</p>
-        </div>
-        <div class="icon">
-          <!-- <i class="ion ion-pie-graph"></i> -->
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-    <!-- ./col -->
+            $gll = explode(",", number_format($total_gl,2,',','.'));
+            $mtr = explode(",", number_format($total_meter,2,',','.'));
+            $klg = explode(",", number_format($total_kg,2,',','.')); 
+        ?>
 
-    
+
+
+        <div class="col-lg-6 col-xs-12">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3 class="sizeFont">
+                <?php
+                  if($gll[1] == 00){
+                    echo number_format($total_gl,0,',','.');
+                  }
+                  else{
+                    echo number_format($total_gl,2,',','.');
+                  } 
+                ?>
+              </h3>
+
+              <p>Total Gl</p>
+            </div>
+            
+           
+          </div>
+        </div>
+         <!-- ./col -->
+        <div class="col-lg-6 col-xs-12">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3 class="sizeFont">
+                <?php
+                  if($mtr[1] == 00){
+                    echo number_format($total_meter,0,',','.');
+                  }
+                  else{
+                    echo number_format($total_meter,2,',','.');
+                  } 
+                ?>
+              </h3>
+
+              <p>Total Meter</p>
+            </div>
+          
+           
+          </div>
+        </div>
+
+         <!-- ./col -->
+        <div class="col-lg-6 col-xs-12">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3 class="sizeFont">
+                <?php
+                  if($klg[1] == 00){
+                    echo number_format($total_kg,0,',','.');
+                  }
+                  else{
+                    echo number_format($total_kg,2,',','.');
+                  } 
+                ?>
+              </h3>
+
+              <p>Total Kilogram</p>
+            </div>
+            <div class="icon">
+          
+            </div>
+           
+          </div>
+        </div>
+        <!-- ./col -->
+       
+        <!-- ./col -->
+        <?php } ?>
+
+    </div>      
+
+    <!-- benang -->
+
+    <div class="col-md-6 col-benang">
+
+        <!-- form select -->
+          <div class="box-header">
+            <h3>Totak Data Stok Benang</h3>
+          </div>
+          
+           <form action="" method="post" class="searc-cn">
+           <div class="col-md-10"> 
+            <select name="jenis_benang" id="" class="form-control">
+             
+              <option value="" selected disabled>-- Pilih Jenis Benang --</option>
+
+              <?php foreach ($benang->result() as $bng): ?>
+                <option value="<?= $bng->id_benang; ?>"><?= $bng->nama_benang; ?></option>
+              <?php endforeach ?>
+            </select>
+            </div>
+            <div class="col-md-2 cari">
+              
+            <button type="submit" name="submit" value="Cari" class="btn btn-primary btn-block"><i class="fa fa-search"></i></button>
+            </div>
+
+           </form>
+            <br>
+            <br>
+            <br>
+
+         <?php  
+          if(@!$this->input->post('submit', TRUE) == 'Cari'){
+            echo '<p class="text-center">Pilih jenis kain untuk melihat stok</p>';
+          }else{
+        ?>
+        <!-- endform select -->
+          <!-- small box -->
+       <div class="col-lg-6 col-xs-12">
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3 class="sizeFont">
+                <?php  
+                  if($total_karung <= 0){echo $total_box.' '.'Box';}
+                  elseif($total_box <= 0){echo $total_karung.' '.'karung';}
+                ?>
+              </h3>
+
+              <p>Banyaknya</p>
+            </div>
+            
+           
+          </div>
+        </div>
+         <!-- ./col -->
+        <div class="col-lg-6 col-xs-12">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3 class="sizeFont">
+                <?php 
+                    if($total_ball <= 0){
+                      echo $total_kg.' '.'Kg';
+                    }elseif($total_kg <= 0){
+                      echo $total_ball.' '.'Ball';
+                    } 
+                ?>
+              </h3>
+
+              <p>Netto</p>
+            </div>
+          
+           
+          </div>
+        </div>
+
+      <?php } ?>
+    </div> 
+        
+    <!-- endbenang -->    
   </div>
-  <!-- /.row -->
-  <!-- Main row -->
-  <div class="box">
-    <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid green;margin: 20px 0px;">
-      <div class="alert alert-default">
-        <h3 class="text-center" style="color:red;">WARNING!</h3>
-        <p class="text-center">Halaman Dasboard masih dalam tahap Develop!</p>
-      </div>
-    </div>
-  </div>
-  <!-- /.row (main row) -->
-
 </section>
+  <!-- endcontent -->
+
+ 
+
+
+
+

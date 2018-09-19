@@ -12,7 +12,7 @@ class Destination extends CI_Controller {
 
 	public function index()
 	{
-		$data['title']	= "Data Distributor";
+		$data['title']	= "Data Destination";
 		$data['benang']	= $this->m_model->order_by('t_dest_benang', 'id_dest', 'DESC');
 		$data['kain']		= $this->m_model->order_by('t_dest', 'id_dest', 'DESC');
 		$this->template->admin('admin/destination/list', $data);

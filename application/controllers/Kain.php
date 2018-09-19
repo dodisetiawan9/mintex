@@ -33,10 +33,10 @@ class Kain extends CI_Controller {
 			$this->form_validation->set_rules('jenis', 'Jenis Kain', 'required|numeric');
 			$this->form_validation->set_rules('gl', 'GL', 'required|numeric');
 			$this->form_validation->set_rules('meter', 'Meter', 'required|numeric');
-			$this->form_validation->set_rules('kg', 'Kilogram (Kg)', 'required|numeric');
+			$this->form_validation->set_rules('kg', 'Kilogram (Kg)', 'numeric');
 			$this->form_validation->set_rules('harga', 'Harga', 'required|numeric');
 			$this->form_validation->set_rules('distributor', 'Distributor', 'required|numeric');
-			$this->form_validation->set_rules('status', 'Status', 'required|numeric');
+			
 
 			if($this->form_validation->run() == TRUE)
 			{
@@ -49,7 +49,7 @@ class Kain extends CI_Controller {
 					'harga'						=> $this->input->post('harga', TRUE),
 					'keterangan' 			=> $this->input->post('keterangan', TRUE),
 					'tgl'							=> $this->input->post('tgl', TRUE),
-					'status_kain'			=> 0
+					'status_kain'			=> 1
 				);
 
 				if($this->m_kain->insert('t_kain_in', $kain)){
